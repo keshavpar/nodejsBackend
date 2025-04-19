@@ -1,0 +1,37 @@
+1️⃣ User Authentication
+Endpoint	Method	Description
+/api/users/register	POST	Register a new user
+/api/users/login	POST	User login
+2️⃣ Products
+Endpoint	Method	Description
+/api/products	GET	Get all products
+/api/products/:id	GET	Get a single product by ID
+/api/products	POST	Add a new product (Auth required)
+/api/products/:id	PUT	Update product details (Auth required)
+/api/products/:id	DELETE	Delete a produfct (Auth required)
+3️⃣ Orders
+Endpoint	Method	Description
+/api/orders	GET	Get all orders (Admin only)
+/api/orders/:id	GET	Get order details by ID
+/api/orders	POST	Create a new order
+/api/orders/:id/status	PUT	Update order status (Auth required)
+4️⃣ Clients
+Endpoint	Method	Description
+/api/clients	GET	Get all clients (Admin only)
+/api/clients/:id	GET	Get client details by ID
+/api/clients	POST	Add a new client
+5️⃣ Payments
+Endpoint	Method	Description
+/api/payments	GET	Get all payments (Admin only)
+/api/payments/:id	GET	Get payment details
+/api/payments	POST	Process a new payment
+6️⃣ Shipping
+Endpoint	Method	Description
+/api/shipping	GET	Get all shipping records
+/api/shipping/:id	GET	Get shipping details by ID
+/api/shipping	POST	Add a new shipping record
+🔒 Secure Routes
+/api/products (POST, PUT, DELETE) → Requires authentication
+/api/orders (Admin access required for GET all orders)
+/api/clients (Admin access required for GET all clients)
+/api/payments (Admin access required for GET all payments)
