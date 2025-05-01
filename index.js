@@ -12,6 +12,8 @@ const orderRoutes = require("./routes/order_routes");
 const clientRoutes = require("./routes/client_routes");
 const paymentRoutes = require("./routes/payment_routes");
 const shippingRoutes = require("./routes/shipping_routes");
+const quotationRoutes = require("./routes/qoutation_routes");
+const purchaseOrderRoutes = require("./routes/purchase_routes");
 
 
 const app = express();
@@ -41,6 +43,8 @@ app.use("/api/orders", orderRoutes);
 app.use("/api/clients", clientRoutes);
 app.use("/api/payments", paymentRoutes);
 app.use("/api/shipping", shippingRoutes);
+app.use("/api/quotations", quotationRoutes);
+app.use("/api/purchase-orders", purchaseOrderRoutes);
 // app.use("/api/users", userRoutes);
 
 // HTTPS Server Setup

@@ -7,6 +7,6 @@ router.post("/", productController.createProduct);
 router.put("/:id", productController.updateProduct); // ✅ Update
 router.delete("/:id", productController.deleteProduct); // ✅ Delete
 // ✅ New route to get signed image URL
-router.get("/signed-url", productController.getSignedImageUrl);
+router.post("/signed-url", productController.getSignedUrlsForImages);
 
 module.exports = router;

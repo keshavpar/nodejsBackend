@@ -2,13 +2,16 @@ const Product = require("../models/product");
 const { sendResponse } = require("../helper/responseHelper");
 // Import S3 client
 const s3 = require("./../utilities/aws_config");
+
 // Get all products
 exports.getAllProducts = async (req, res) => {
-    try {
-        const products = await Product.find().populate("category");
-        sendResponse(res, "success", 200, products, "Products retrieved successfully");
-    } catch (err) {
-    }
+  try {
+      const products = await Product.find().populate("category");
+      return sendResponse(res, "success", 200, products, "Products retrieved successfully");
+  } catch (err) {
+      console.error("Error fetching products:", err.message);
+      return sendResponse(res, "error", 500, null, "Failed to retrieve products");
+  }
 };
 
 // Create a new product
@@ -44,34 +47,36 @@ exports.updateProduct = async (req, res) => {
 
 
 // controllers/awsController.js
-
-
-exports.getSignedImageUrl = async (req, res) => {
-    try {
-      if (!s3 || typeof s3.getSignedUrl !== "function") {
-        throw new Error("S3 object not properly initialized");
-      }
-  
-      const { key } = req.query;
-  
-      if (!key) {
-        return sendResponse(res, "error", 400, null, "Missing 'key' query parameter");
-      }
-  
-      const params = {
-        Bucket: "ld23",
-        Key: key,
-        Expires: 60 * 5,
-      };
-  
-      const url = s3.getSignedUrl("getObject", params);
-  
-      return sendResponse(res, "success", 200, { url }, "Signed URL generated successfully");
-    } catch (err) {
-      console.error("AWS Signed URL Error:", err);
-      return sendResponse(res, "error", 500, null, err.message);
+exports.getSignedUrlsForImages = async (req, res) => {
+  try {
+    if (!s3 || typeof s3.getSignedUrl !== "function") {
+      throw new Error("S3 object not properly initialized");
     }
-  };
+
+    const { imageKeys } = req.body;
+
+    if (!Array.isArray(imageKeys) || imageKeys.length === 0) {
+      return sendResponse(res, "error", 400, null, "Missing or invalid 'imageKeys' array in request body");
+    }
+
+    const signedUrls = imageKeys.map((key) => {
+      if (typeof key !== "string" || !key.trim()) {
+        throw new Error(`Invalid image key: ${key}`);
+      }
+
+      return s3.getSignedUrl("getObject", {
+        Bucket: "ld23", // Replace with your actual bucket name or use a config variable
+        Key: key,
+        Expires: 60 * 5, // 5 minutes expiry
+      });
+    });
+
+    return sendResponse(res, "success", 200, signedUrls, "Signed URLs generated successfully");
+  } catch (err) {
+    console.error("AWS Signed URL Error:", err);
+    return sendResponse(res, "error", 500, null, err.message);
+  }
+};
 
 // ✅ Delete a product by ID
 exports.deleteProduct = async (req, res) => {
