@@ -7,5 +7,7 @@ router.post("/create", clientController.createClient);
 
 // Get all clients
 router.get("/", clientController.getAllClients);
+router.put("/:id", clientController.updateClient); // ✅ Update
+router.delete("/:id", clientController.deleteClient); // ✅ Delete
 
 module.exports = router;

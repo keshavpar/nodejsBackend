@@ -4,7 +4,7 @@ const { sendResponse } = require("../helper/responseHelper");
 exports.getAllPurchaseOrders = async (req, res) => {
     try {
         const orders = await PurchaseOrder.find()
-            .populate("supplier products.product shippingDetails");
+           
         return sendResponse(res, "success", 200, orders, "Purchase orders retrieved successfully");
     } catch (err) {
         return sendResponse(res, "error", 500, null, err.message);

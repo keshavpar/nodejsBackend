@@ -78,6 +78,7 @@ exports.getSignedUrlsForImages = async (req, res) => {
   }
 };
 
+
 // ✅ Delete a product by ID
 exports.deleteProduct = async (req, res) => {
     try {

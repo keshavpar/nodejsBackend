@@ -22,3 +22,42 @@ exports.getAllClients = async (req, res) => {
         sendResponse(res, "error", 500, null, err.message);
     }
 };
+
+// ✅ Update a product by ID
+exports.updateClient = async (req, res) => {
+    try {
+        const clientId= req.params.id;
+        const updatedClient = await User.findByIdAndUpdate(
+            clientId,
+            req.body,
+            { new: true, runValidators: true }
+        );
+
+        if (!updatedClient) {
+            return sendResponse(res, "error", 404, null, "Client not found");
+        }
+
+        sendResponse(res, "success", 200, updatedClient, "Client updated successfully");
+    } catch (err) {
+        sendResponse(res, "error", 500, null, err.message);
+    }
+};
+
+
+// ✅ Delete a product by ID
+exports.deleteClient = async (req, res) => {
+    try {
+        const clientId = req.params.id;
+        const deletedClient = await Product.findByIdAndDelete(clientId);
+
+        if (!deletedClient) {
+            return sendResponse(res, "error", 404, null, "Client not found");
+        }
+
+        sendResponse(res, "success", 200, deletedClient, "Client deleted successfully");
+    } catch (err) {
+        sendResponse(res, "error", 500, null, err.message);
+    }
+};
+
+

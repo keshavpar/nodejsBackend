@@ -8,7 +8,8 @@ const UserSchema = new mongoose.Schema({
     address:  { type: String },
     landmark: { type: String },
     pincode:  { type: String },
-    createdAt:{ type: Date, default: Date.now }
+    createdAt:{ type: Date, default: Date.now },
+    gst: {type: String,required: true},
 });
 
 module.exports = mongoose.model("User", UserSchema);
