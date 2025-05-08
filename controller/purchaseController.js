@@ -4,12 +4,15 @@ const { sendResponse } = require("../helper/responseHelper");
 exports.getAllPurchaseOrders = async (req, res) => {
     try {
         const orders = await PurchaseOrder.find()
-           
+            .populate("vendor")  // This will populate the vendor field with the user details
+            .populate("products.product");  // If you also want to populate the product details, you can add this
+
         return sendResponse(res, "success", 200, orders, "Purchase orders retrieved successfully");
     } catch (err) {
         return sendResponse(res, "error", 500, null, err.message);
     }
 };
+
 
 exports.createPurchaseOrder = async (req, res) => {
     try {
