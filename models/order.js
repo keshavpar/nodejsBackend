@@ -24,16 +24,20 @@ const OrderSchema = new mongoose.Schema({
     required: true
   },
   cgst: {
-    type: Number
+    type: Number,default: 0 
   },
   sgst: {
-    type: Number
+    type: Number,
+    default: 0 
   },
   igst: {
-    type: Number
+    type: Number,default: 0 
+  },
+  ugst:{
+    type: Number,default: 0 
   },
   advancePayment: {
-    type: Number
+    type: Number,default: 0 
   },
   modeOfPayment: {
     type: String // you can also set enum if you want: ['cash', 'card', 'upi', etc.]
