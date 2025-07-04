@@ -48,7 +48,7 @@ exports.updateClient = async (req, res) => {
 exports.deleteClient = async (req, res) => {
     try {
         const clientId = req.params.id;
-        const deletedClient = await Product.findByIdAndDelete(clientId);
+        const deletedClient = await User.findByIdAndDelete(clientId);
 
         if (!deletedClient) {
             return sendResponse(res, "error", 404, null, "Client not found");
